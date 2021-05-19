@@ -9,10 +9,12 @@ import java.util.Set;
 public class TestRedisUtil {
 
     @Test
-    public void testInitHash() {
+    public void testInitHash() throws Exception {
         for(int i=1;i<=30;i++){
-            RedisUtil.hset("redis:paging:demo:hash:item"+String.valueOf(i), "name", "商品"+i);
-            RedisUtil.hset("redis:paging:demo:hash:item"+String.valueOf(i), "price", "10.00");
+            MyItem item = new MyItem();
+            item.setName("商品" + i);
+            item.setPrice("10.00");
+            RedisUtil.hset("redis:paging:demo:hash:item", String.valueOf(i), MyJsonUtil.pojoToJson(item));
         }
     }
 
